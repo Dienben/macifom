@@ -47,12 +47,16 @@ void VideoBufferProviderReleaseData(void *info, const void *data, size_t size)
 	screenRect = &_windowedRect;
 		
 	// There are reports that this can return fnf on Leopard, investigating...
+    /*
 	if (CMGetSystemProfile(&profile) == noErr) { 
 		_colorSpace = CGColorSpaceCreateWithPlatformColorSpace(profile); 
 		CMCloseProfile(profile); 
 		NSLog(@"Obtained System colorspace. CG rendering will follow the fast path.");
 	} 
 	else _colorSpace = CGColorSpaceCreateDeviceRGB();
+     */
+    _colorSpace = CGColorSpaceCreateWithPlatformColorSpace(profile);
+    _colorSpace = CGColorSpaceCreateDeviceRGB();
 		
 	[[self window] useOptimizedDrawing:YES]; // Use optimized drawing in window as there are no overlapping subviews
 	[[self window] setPreferredBackingLocation:NSWindowBackingLocationVideoMemory]; // Use QuartzGL to scale the video
